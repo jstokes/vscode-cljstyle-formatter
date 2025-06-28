@@ -1,0 +1,111 @@
+{
+  "name": "vscode-cljstyle-formatter",
+  "displayName": "cljstyle Formatter",
+  "description": "A Clojure formatter using cljstyle with expansion for region formatting",
+  "version": "0.0.1",
+  "publisher": "jeffstokes",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jstokes/vscode-cljstyle-formatter"
+  },
+  "bugs": {
+    "url": "https://github.com/jstokes/vscode-cljstyle-formatter/issues"
+  },
+  "homepage": "https://github.com/jstokes/vscode-cljstyle-formatter",
+  "keywords": [
+    "clojure",
+    "formatter",
+    "cljstyle",
+    "lisp",
+    "clojurescript"
+  ],
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "activationEvents": [
+    "onLanguage:clojure",
+    "onCommand:editor.action.formatDocument"
+  ],
+  "main": "dist/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "clojure",
+        "aliases": [
+          "Clojure",
+          "clj"
+        ],
+        "extensions": [
+          ".clj",
+          ".cljs",
+          ".cljc",
+          ".edn",
+          ".fiddle"
+        ]
+      }
+    ],
+    "documentFormatting": [
+      {
+        "language": "clojure",
+        "command": "cljstyleFormatter.formatDocument"
+      }
+    ],
+    "documentRangeFormatting": [
+      {
+        "language": "clojure",
+        "command": "cljstyleFormatter.formatDocument"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "cljstyle Formatter",
+      "properties": {
+        "cljstyleFormatter.cljstylePath": {
+          "type": "string",
+          "default": "cljstyle",
+          "description": "Path to the cljstyle executable."
+        },
+        "cljstyleFormatter.extraArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Additional arguments to pass to cljstyle."
+        },
+        "cljstyleFormatter.smartExpansion": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically expand unbalanced selections to balanced expressions before formatting."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "cljstyleFormatter.formatDocument",
+        "title": "Format Document with cljstyle"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "prepare-dist": "node scripts/prepare-dist.js",
+    "pretest": "npm run compile && npm run prepare-dist && tsc -p ./tests/tsconfig.json",
+    "test": "node dist/tests/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.70.0",
+    "@vscode/test-electron": "^2.4.6",
+    "mocha": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
+  }
+}

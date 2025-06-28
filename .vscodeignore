@@ -1,0 +1,51 @@
+# Source files (TypeScript source)
+src/**
+tests/**
+.vscode-test/**
+
+# Compiled test files (keep only main extension)
+dist/tests/**
+
+# Build configuration
+tsconfig.json
+tests/tsconfig.json
+
+# Development files
+.git*
+.github/**
+scripts/**
+node_modules/**
+.DS_Store
+Thumbs.db
+
+# Claude and development artifacts
+.claude/**
+~/.claude/**
+CLAUDE.md
+DEVELOPER.md
+
+# Documentation (keep only README)
+*.md
+!README.md
+
+# Test files
+test-files/**
+
+# Logs and temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Package files that shouldn't be in the extension
+*.vsix
+package-lock.json
+
+# Coverage and testing
+coverage/**
+.nyc_output/**
+
+# Environment files
+.env
+.env.*
