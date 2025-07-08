@@ -262,6 +262,28 @@ suite("Extension Activation Test Suite", () => {
     assert.strictEqual(openParens, closeParens, "Parentheses should remain balanced");
   });
 
+  test("Manual format command works", async function () {
+    const unformatted = "(defn foo [x]  (inc x))";
+    
+    // Get expected formatted output
+    const { execFileSync } = require("child_process");
+    let expectedFormatted;
+    try {
+      expectedFormatted = execFileSync("cljstyle", ["pipe"], { input: unformatted, encoding: "utf8" });
+    } catch (e) {
+      throw new Error("cljstyle must be installed and available in PATH for this test to run.");
+    }
+
+    const doc = await vscode.workspace.openTextDocument({ language: "clojure", content: unformatted });
+    const editor = await vscode.window.showTextDocument(doc);
+
+    // Test the manual command
+    await vscode.commands.executeCommand("cljstyleFormatter.formatDocument");
+    const formattedText = editor.document.getText();
+    
+    assert.strictEqual(formattedText, expectedFormatted, "Manual format command should format the document");
+  });
+
   test("Balance detection works correctly", async function () {
     // Test the isBalanced function indirectly by checking different text patterns
     const testCases = [

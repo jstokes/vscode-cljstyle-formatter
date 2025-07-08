@@ -2,7 +2,7 @@
   "name": "vscode-cljstyle-formatter",
   "displayName": "cljstyle Formatter",
   "description": "A Clojure formatter using cljstyle with expansion for region formatting",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "jeffstokes",
   "repository": {
     "type": "git",

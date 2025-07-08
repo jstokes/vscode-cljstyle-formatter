@@ -17,6 +17,25 @@ export function activate(context: vscode.ExtensionContext) {
     })
   );
 
+  // Register the manual format command
+  context.subscriptions.push(
+    vscode.commands.registerCommand('cljstyleFormatter.formatDocument', async () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        vscode.window.showErrorMessage('No active editor found');
+        return;
+      }
+      
+      if (editor.document.languageId !== 'clojure') {
+        vscode.window.showErrorMessage('Active editor is not a Clojure file');
+        return;
+      }
+      
+      // Use VSCode's built-in format document command which will call our provider
+      await vscode.commands.executeCommand('editor.action.formatDocument');
+    })
+  );
+
   // Range formatting (selection)
   context.subscriptions.push(
     vscode.languages.registerDocumentRangeFormattingEditProvider({ language: "clojure" }, {
